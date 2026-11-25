@@ -142,6 +142,17 @@ async def delete_item(item_id: str):
         "id": item_id
     }
 
+@app.delete_2("/items/{item_id}", response_model=SuccessResponse)
+async def delete_item_2(item_id: str):
+    """Delete an item by its unique ID."""
+    existing_item = validate_item_id(item_id)
+    del fake_db[item_id]
+    return {
+        "message": "Item deleted successfully",
+        "id": item_id
+    }
+    
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host="localhost",port=8000)
